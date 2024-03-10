@@ -1,0 +1,44 @@
+---
+title: "hw5"
+author: "Vicky Wang"
+date: '2022-03-21'
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("r2symbols")
+```
+
+```{r readin data}
+savings <- read.csv("savings.csv")
+```
+
+#### **Problem 1**
+```{r normal response regression}
+model1 <- lm(sr ~ pop15 + ddpi,
+              data = savings)
+summary(model1)
+```
+```{r 1a}
+sqrt(3.861)
+```
+B0 = 15.5996
+B1 = -0.2164
+B2 = -.4428
+sigma = 1.964943
+Adj. r^2 = 0.2575
+
+```{r 1b confint}
+mean_pop15 <- mean(savings$pop15)
+mean_ddpi <- mean(savings$ddpi)
+dat_fram <- data.frame(pop15 = mean_pop15, ddpi = mean_ddpi)
+predict(model1, dat_fram, interval = "confidence")
+predict(model1, dat_fram, interval = "prediction")
+```
+Confidence interval for mean response: 8.572606, 10.76939
+Prediction interval for mean response: 1.826897, 17.5151
+
+#### **Problem 2**
